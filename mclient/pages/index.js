@@ -21,6 +21,7 @@ const Home = () => (
     <Nav />
 
     <AddressList />
+    MAPIURL_ADDRESLIST: {process.env.MAPIURL_ADDRESLIST}
 
     <style jsx>{`
       .hero {

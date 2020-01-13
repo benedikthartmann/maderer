@@ -8,7 +8,6 @@
 import fetcher from "../lib/fetcher";
 import useSWR, { mutate } from "swr";
 import React, {useState} from "react";
-import {checkStatus,parseJSON} from "../lib/jsonfetcher";
 
 function AddressForm(props) {
   if (Number(props.addressId) == 0) {
