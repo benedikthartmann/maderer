@@ -16,7 +16,7 @@ Fullstack webapplication test environment with:
 Start Development Server:
 ```
 set DEBUG=portlasrv:*
-npm start
+npm run start:dev
 ```
 
 ### Deployment ###
@@ -29,9 +29,10 @@ Helpful Tutorials:
 - https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs
 - https://www.codementor.io/@julieisip/learn-rest-api-using-express-js-and-mysql-db-ldflyx8g2
 - http://stayregular.net/blog/make-a-nodejs-api-with-mysql
+- https://stackabuse.com/managing-environment-variables-in-node-js-with-dotenv/
 
 ### Todos ###
-- [ ] db parameter in a seperate config file like (https://medium.com/@austinhale/building-a-node-api-with-express-and-google-cloud-sql-9bda260b040f)
+- [ ] db parameter in a separate config file like (https://medium.com/@austinhale/building-a-node-api-with-express-and-google-cloud-sql-9bda260b040f)
 - [ ] api link in a config file
 
 ## client: mclient
@@ -62,5 +63,5 @@ npm run build
 - modal popup tailwind: https://www.tailwindtoolbox.com/components/modal
 
 ### Todos ###
-- [ ] api link in a config file
+- [x] api link in a config file -> next.config.js
 - [ ] pagination: scroll and load more container & div layout

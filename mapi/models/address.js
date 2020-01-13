@@ -31,7 +31,8 @@ Address.read = function (id, result) {
 };
 
 Address.list = function (result) {
-        sql.query("Select id,firstname as name, CONCAT('http://localhost:3001/address/',id) as url from address limit 100", function (err, res) {
+    // http://localhost:3001
+        sql.query("Select id,firstname as name, CONCAT('https://maderer.appspot.com/address/',id) as url from address limit 100", function (err, res) {
                 if(err) {
                     console.log("error: ", err);
                     result(err, null);
@@ -61,54 +62,5 @@ Address.update = function(id, addressobj, result){
                 }
             });
 };
-
-
-/*
-var addresslist = {
-  "count": 964,
-  "next": "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
-  "previous": null,
-  "results": [{
-      "id": "1",
-      "name": "Valerie",
-      "url": "http://localhost:3001/address/1"
-    },
-    {
-      "id": "2",
-      "name": "Flora",
-      "url": "http://localhost:3001/address/2"
-    },
-    {
-      "id": "3",
-      "name": "Kinski",
-      "url": "http://localhost:3001/address/3"
-    },
-    {
-      "id": "4",
-      "name": "Herzog",
-      "url": "http://localhost:3001/address/4"
-    },
-    {
-      "id": "5",
-      "name": "Paul",
-      "url": "http://localhost:3001/address/5"
-    },
-    {
-      "id": "6",
-      "name": "Herbert",
-      "url": "http://localhost:3001/address/6"
-    },
-    {
-      "id": "7",
-      "name": "Mueller",
-      "url": "http://localhost:3001/address/7"
-    }
-  ]
-};
-
-Address.list = function (result) {
-  result(null,addresslist);
-};
-*/
 
 module.exports= Address;
