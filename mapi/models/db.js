@@ -9,18 +9,16 @@ if (process.env.DB_HOST) {
       host: process.env.DB_HOST,
       user     : process.env.DB_USER,
       password : process.env.DB_PASS,
-      database : process.env.DB_DATABASE,
+      database : process.env.DB_NAME,
   });
 } else {
   var connection = mysql.createConnection({
-      socketPath: '/cloudsql'+CLOUD_SQL_CONNECTION_NAME,    
+      socketPath: '/cloudsql/'+process.env.CLOUD_SQL_CONNECTION_NAME,
       user     : process.env.DB_USER,
       password : process.env.DB_PASS,
-      database : process.env.DB_DATABASE,
+      database : process.env.DB_NAME,
   });
 }
-
-console.log("DBuser:"+process.env.DB_USER);
 
 connection.connect(function(err) {
     if (err) throw err;

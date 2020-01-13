@@ -6,35 +6,48 @@
  * https://github.com/zeit/swr/tree/master/examples/local-state-sharing
  */
 import fetcher from "../lib/fetcher";
-import useSWR, { mutate } from "swr";
-import React, {useState} from "react";
+import useSWR, {mutate} from "swr";
+import React, {useState, useEffect} from "react";
 
 function AddressForm(props) {
   if (Number(props.addressId) == 0) {
     return <div></div>;
   }
 
-  const { data } = useSWR(props.addressId.url, fetcher);
+  const {data} = useSWR(props.addressId.url, fetcher);
   if (!data) {
     return null;
   }
 
-  const [dfirstname, setDFirstname] = useState("");
-  const [dlastname, setDLastname] = useState("");
+  const [formfielddata, setFormFieldData] = useState(new Object());
+
+  // Similar to componentDidMount and componentDidUpdate:
+  // set the initial data for the formfield
+  useEffect(() => {
+    setFormFieldData(data);
+  });
 
   function handleSave(event) {
-      fetch(props.addressId.url, {
-         method: 'post',
-         headers: {'Content-Type':'application/json'},
-         body: JSON.stringify({
-              "firstname": dfirstname,
-              "lastname": dlastname
-         })
-      });
-      mutate(props.addressId.url, { ...data, firstname: dfirstname, lastname: dlastname }, false);
+    fetch(props.addressId.url, {
+      method: "post",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(formfielddata)
+    });
+    mutate(
+      props.addressId.url,
+      {...data,formfielddata},
+      //{...data, firstname: dfirstname, lastname: dlastname},
+      false
+    );
 
-      props.setShowAdressForm(false);
-    }
+    props.setShowAdressForm(false);
+  }
+
+  function changeFormField(fieldname,value) {
+    let formfielddataTmp = formfielddata;
+    formfielddata[fieldname] = value;
+    setFormFieldData(formfielddata);
+  }
 
   return (
     <div className="h-screen w-full absolute flex items-center justify-center bg-modal">
@@ -46,9 +59,7 @@ function AddressForm(props) {
             </h2>
             {data ? (
               <>
-                <label
-                  className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                >
+                <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
                   First Name
                 </label>
                 <input
@@ -56,7 +67,7 @@ function AddressForm(props) {
                   name="firstname"
                   defaultValue={data.firstname}
                   onChange={e => {
-                    setDFirstname(e.target.value);
+                    changeFormField('firstname',e.target.value);
                   }}
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                   id="grid-first-name"
@@ -66,9 +77,7 @@ function AddressForm(props) {
                 <p className="text-red text-xs italic">
                   Please fill out this field.
                 </p>
-                <label
-                  className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-                >
+                <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
                   Lastname
                 </label>
                 <input
@@ -76,7 +85,7 @@ function AddressForm(props) {
                   name="lastname"
                   defaultValue={data.lastname}
                   onChange={e => {
-                    setDLastname(e.target.value);
+                    changeFormField('lastname',e.target.value);
                   }}
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                   id="grid-first-name"

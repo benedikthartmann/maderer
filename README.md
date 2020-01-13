@@ -32,7 +32,7 @@ Helpful Tutorials:
 - https://stackabuse.com/managing-environment-variables-in-node-js-with-dotenv/
 
 ### Todos ###
-- [ ] db parameter in a separate config file like (https://medium.com/@austinhale/building-a-node-api-with-express-and-google-cloud-sql-9bda260b040f)
+- [x] db parameter in a separate config file like (https://stackabuse.com/managing-environment-variables-in-node-js-with-dotenv/)
 - [ ] api link in a config file
 
 ## client: mclient
