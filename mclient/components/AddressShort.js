@@ -11,44 +11,34 @@ function AddressShort(props) {
   const {data} = useSWR(props.entity.url, fetcher);
 
   return (
-    <div className="my-5 p-2 w-1/3">
-      <article className="shadow p-5 relative">
-        <h2 className="font-bold text-xl capitalize">{props.entity.name}</h2>
-        {data ? (
-          <>
-            <div className="absolute top-0 right-0">
-              <img src="" />
-            </div>
-            <ul>
-              <li>
-                {data.firstname}
-              </li>
-              <li>
-                {data.lastname}
-              </li>
-            </ul>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={e =>
-                displayAdressForm(
-                  props.entity,
-                  props.setEntity,
-                  props.setShowAdressForm
-                )
-              }
-            >
-              edit
-            </button>
-            <br />
-          </>
+        data ? (
+          <div className="flex z-0">
+            <div className="bg-red-500 sm:bg-green-500 md:bg-blue-500 lg:bg-pink-500 xl:bg-teal-500">{props.entity.name}</div>
+            <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4 bg-gray-500">{data.firstname}</div>
+            <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4 bg-gray-500">{data.lastname}</div>
+            <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4 bg-gray-500">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={e =>
+                  displayAdressForm(
+                    props.entity,
+                    props.setEntity,
+                    props.setShowAdressForm
+                  )
+                }
+              >
+                edit
+              </button></div>
+          </div>
         ) : (
           <p className="font-bold text-l capitalize">
             Loading {props.entity.id}...
           </p>
-        )}
-      </article>
-    </div>
+        )
   );
 }
 
 export default AddressShort;
+/*
+
+*/

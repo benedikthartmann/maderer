@@ -33,8 +33,7 @@ function AddressList() {
         )
       }>+</button>
       </div>
-      <section className="container mx-auto z-0">
-        <div className="-mx-2 flex flex-wrap">
+      <section>
           {results.map(result => (
             <AddressShort
               key={result.id}
@@ -44,7 +43,6 @@ function AddressList() {
               setShowAdressForm={setShowAdressForm}
             />
           ))}
-        </div>
       </section>
     </>
   );

@@ -2,7 +2,7 @@
 const {
   PHASE_DEVELOPMENT_SERVER,
   PHASE_PRODUCTION_BUILD,
-} = require('next/constants')
+} = require('next/constants');
 
 // This uses phases as outlined here: https://nextjs.org/docs/#custom-configuration
 module.exports = phase => {
@@ -32,6 +32,6 @@ module.exports = phase => {
 
   // next.config.js object
   return {
-    env,
+    env
   }
 }

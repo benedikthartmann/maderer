@@ -62,6 +62,9 @@ npm run build
 - based on: https://sergiodxa.com/articles/swr/intro/
 - modal popup tailwind: https://www.tailwindtoolbox.com/components/modal
 
+### Problems
+problems when installing Tailwindcss and next.js as described here (https://dev.to/notrab/get-up-and-running-with-tailwind-css-and-next-js-3a73). Reason because in next.config.js it seems only possible to export one module, and we already export the environment variables.
+
 ### Todos ###
 - [x] api link in a config file -> next.config.js
 - [ ] pagination: scroll and load more container & div layout
