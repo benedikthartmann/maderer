@@ -16,11 +16,17 @@ module.exports = phase => {
   console.log(`isDev:${isDev}  isProd:${isProd}   isStaging:${isStaging}`)
 
   const env = {
-    MAPIURL_ADDRESLIST: (() => {
+    MAPIURL_ADDRESSLIST: (() => {
       if (isDev) return 'http://localhost:3001/address/list'
       if (isProd) return 'https://maderer.appspot.com/address/list'
       if (isStaging) return 'http://localhost:11639'
-      return 'MAPIURL_ADDRESLIST:not (isDev,isProd && !isStaging,isProd && isStaging)'
+      return 'MAPIURL_ADDRESSLIST:not (isDev,isProd && !isStaging,isProd && isStaging)'
+    })(),
+    MAPIURL_ADDRESSNEW: (() => {
+      if (isDev) return 'http://localhost:3001/address/0'
+      if (isProd) return 'https://maderer.appspot.com/address/0'
+      if (isStaging) return 'http://localhost:11639'
+      return 'MAPIURL_ADDRESSNEW:not (isDev,isProd && !isStaging,isProd && isStaging)'
     })()
   }
 

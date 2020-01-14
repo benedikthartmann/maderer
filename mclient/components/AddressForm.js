@@ -9,41 +9,60 @@ import fetcher from "../lib/fetcher";
 import useSWR, {mutate} from "swr";
 import React, {useState, useEffect} from "react";
 
+function displayAdressForm(entity, setEntity, setShowAdressForm) {
+  setEntity(entity);
+  setShowAdressForm(true);
+}
+
 function AddressForm(props) {
-  if (Number(props.addressId) == 0) {
+  if (Number(props.entity) == 0) {
     return <div></div>;
   }
 
-  const {data} = useSWR(props.addressId.url, fetcher);
+  let swrKey = props.entity.url;
+  let swrFetcher = fetcher;
+
+  if (Number(props.entity.id) == 0) {
+    swrKey = "localStateNew";
+    swrFetcher =  { initialData: {
+      id: 0,
+      firstname: "",
+      lastname: ""
+    } };
+    console.log("New");
+  }
+
+  const {data} = useSWR(swrKey, swrFetcher);
   if (!data) {
     return null;
   }
 
+  console.log("Data:", data);
+
   const [formfielddata, setFormFieldData] = useState(new Object());
 
   // Similar to componentDidMount and componentDidUpdate:
-  // set the initial data for the formfield
+  // set the initial data from the json data load (swr) for the formfield
   useEffect(() => {
     setFormFieldData(data);
   });
 
   function handleSave(event) {
-    fetch(props.addressId.url, {
+    fetch(props.entity.url, {
       method: "post",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(formfielddata)
     });
     mutate(
-      props.addressId.url,
-      {...data,formfielddata},
+      props.entity.url,
+      {...data, formfielddata},
       //{...data, firstname: dfirstname, lastname: dlastname},
       false
     );
-
     props.setShowAdressForm(false);
   }
 
-  function changeFormField(fieldname,value) {
+  function changeFormField(fieldname, value) {
     let formfielddataTmp = formfielddata;
     formfielddata[fieldname] = value;
     setFormFieldData(formfielddata);
@@ -52,10 +71,10 @@ function AddressForm(props) {
   return (
     <div className="h-screen w-full absolute flex items-center justify-center bg-modal">
       {props.showAdressForm ? (
-        <div className="z-40 bg-gray-400 rounded shadow p-8 m-4 max-w-xs max-h-full text-center overflow-y-scroll">
+        <div className="z-40 bg-gray-400 rounded shadow p-8 m-4 max-w-xs max-h-full text-center fixed overflow-y-scroll">
           <article className="shadow p-5 relative">
             <h2 className="font-bold text-xl capitalize">
-              {props.addressId.name}
+              {props.entity.name}
             </h2>
             {data ? (
               <>
@@ -67,7 +86,7 @@ function AddressForm(props) {
                   name="firstname"
                   defaultValue={data.firstname}
                   onChange={e => {
-                    changeFormField('firstname',e.target.value);
+                    changeFormField("firstname", e.target.value);
                   }}
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                   id="grid-first-name"
@@ -85,7 +104,7 @@ function AddressForm(props) {
                   name="lastname"
                   defaultValue={data.lastname}
                   onChange={e => {
-                    changeFormField('lastname',e.target.value);
+                    changeFormField("lastname", e.target.value);
                   }}
                   className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                   id="grid-first-name"
@@ -111,4 +130,4 @@ function AddressForm(props) {
   );
 }
 
-export default AddressForm;
+export {AddressForm, displayAdressForm};

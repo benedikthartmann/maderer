@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/list', addressController.address_list);
 router.get('/:id', addressController.address_read);
-router.post('/:id', addressController.address_update);
+router.post('/:id', addressController.address_createOrUpdate);
 
 /**
 router.param('id', function (req, res, next, id) {

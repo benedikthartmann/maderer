@@ -16,8 +16,8 @@ exports.address_list = function(req, res) {
   });
 };
 
-exports.address_update = function(req, res) {
-  Address.update(req.params.id, new Address(req.body), function(err, data) {
+exports.address_createOrUpdate = function(req, res) {
+  Address.createOrUpdate(req.params.id, new Address(req.body), function(err, data) {
     if (err)
       res.send(err);
     res.json(data);

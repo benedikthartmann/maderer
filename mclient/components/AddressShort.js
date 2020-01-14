@@ -1,24 +1,19 @@
 import fetcher from "../lib/fetcher";
 import useSWR from "swr";
 import React, {useState, useEffect} from "react";
-import AddressForm from "../components/AddressForm";
-
-function displayAdressForm(addressId, setAddressId, setShowAdressForm) {
-  setAddressId(addressId);
-  setShowAdressForm(true);
-}
+import {AddressForm, displayAdressForm} from "../components/AddressForm";
 
 function AddressShort(props) {
-  if (Number(props.addressId) == 0) {
+  if (Number(props.entity) == 0) {
     return <div></div>;
   }
 
-  const {data} = useSWR(props.addressId.url, fetcher);
+  const {data} = useSWR(props.entity.url, fetcher);
 
   return (
     <div className="my-5 p-2 w-1/3">
       <article className="shadow p-5 relative">
-        <h2 className="font-bold text-xl capitalize">{props.addressId.name}</h2>
+        <h2 className="font-bold text-xl capitalize">{props.entity.name}</h2>
         {data ? (
           <>
             <div className="absolute top-0 right-0">
@@ -26,18 +21,18 @@ function AddressShort(props) {
             </div>
             <ul>
               <li>
-                <strong>Firstname</strong>: {data.firstname}
+                {data.firstname}
               </li>
               <li>
-                <strong>Lastname</strong>: {data.lastname}
+                {data.lastname}
               </li>
             </ul>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               onClick={e =>
                 displayAdressForm(
-                  props.addressId,
-                  props.setAddressId,
+                  props.entity,
+                  props.setEntity,
                   props.setShowAdressForm
                 )
               }
@@ -48,7 +43,7 @@ function AddressShort(props) {
           </>
         ) : (
           <p className="font-bold text-l capitalize">
-            Loading {props.addressId.id}...
+            Loading {props.entity.id}...
           </p>
         )}
       </article>
