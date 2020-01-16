@@ -6,7 +6,7 @@ import AddressShort from "../components/AddressShort";
 import {AddressForm, displayAdressForm} from "../components/AddressForm";
 
 function AddressList() {
-  const {data} = useSWR(process.env.MAPIURL_ADDRESSLIST, fetcher);
+  const {data} = useSWR(process.env.MAPIURL_ADDRESSLIST, fetcher,{refreshInterval: 0});
   const [showAdressForm, setShowAdressForm] = useState(false);
   const [entity, setEntity] = useState(0);
 

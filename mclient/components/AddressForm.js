@@ -19,20 +19,12 @@ function AddressForm(props) {
     return <div></div>;
   }
 
-  let swrKey = props.entity.url;
-  let swrFetcher = fetcher;
+  const initialData = {id: 0,
+    firstname: "",
+    lastname: ""
+  };
 
-  if (Number(props.entity.id) == 0) {
-    swrKey = "localStateNew";
-    swrFetcher =  { initialData: {
-      id: 0,
-      firstname: "",
-      lastname: ""
-    } };
-    console.log("New");
-  }
-
-  const {data} = useSWR(swrKey, swrFetcher);
+  const {data} = useSWR(props.entity.url, fetcher,{initialData},{refreshInterval: 0});
   if (!data) {
     return null;
   }

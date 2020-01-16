@@ -8,7 +8,7 @@ function AddressShort(props) {
     return <div></div>;
   }
 
-  const {data} = useSWR(props.entity.url, fetcher);
+  const {data} = useSWR(props.entity.url, fetcher,{refreshInterval: 0});
 
   return (
         data ? (
