@@ -67,4 +67,8 @@ problems when installing Tailwindcss and next.js as described here (https://dev.
 
 ### Todos ###
 - [x] api link in a config file -> next.config.js
+- [x] if a new record is added it should be immediately visible in the list --> trigger
 - [ ] pagination: scroll and load more container & div layout
+- [ ] using next.js, what are the advantages?
+- [ ] why the AddressForm is loaded three times?, if the addressform is loaded the list is reloaded
+- [ ] decision for css framework: use tailwindcss?

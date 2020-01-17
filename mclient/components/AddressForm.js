@@ -6,7 +6,7 @@
  * https://github.com/zeit/swr/tree/master/examples/local-state-sharing
  */
 import fetcher from "../lib/fetcher";
-import useSWR, {mutate} from "swr";
+import useSWR, {mutate, trigger} from "swr";
 import React, {useState, useEffect} from "react";
 
 function displayAdressForm(entity, setEntity, setShowAdressForm) {
@@ -35,7 +35,7 @@ function AddressForm(props) {
     setFormFieldData(data);
   });
 
-  // unclear how to use mutate correct:
+  // unclear how to use mutate correct, it works as it is:
   // - VERSION 1: mutate(props.entity.url, {...data, firstname: dfirstname, lastname: dlastname},...
   // - vERSION 2: mutate(props.entity.url, {...data, formfielddata},...
   // --> it seems that with useEffect it is anyway linked together and formfield and data is the same!
@@ -46,6 +46,16 @@ function AddressForm(props) {
       body: JSON.stringify(data)
     });
     mutate(props.entity.url, {...data}, false);
+    // in case of new record, wait for one second until the data are saved and reload the list
+    if (Number(props.entity.id) == 0) {
+      const delay = ms => new Promise(res => setTimeout(res, ms));
+      const yourFunction = async () => {
+        await delay(1000);
+        trigger(process.env.MAPIURL_ADDRESSLIST);
+        console.log("trigger refres");
+      };
+      yourFunction();
+    }
     props.setShowAdressForm(false);
   }
 
