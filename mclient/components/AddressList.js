@@ -63,10 +63,4 @@ function AddressList() {
   );
 }
 
-/**
-<div className="z-40 bg-gray-400 rounded shadow p-8 m-4 max-w-xs max-h-full text-center fixed">
-  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">new</button>
-</div>
-*/
-
 export default AddressList;

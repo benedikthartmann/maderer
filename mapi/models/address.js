@@ -33,12 +33,19 @@ Address.read = function(id, result) {
   );
 };
 
-Address.list = function(result) {
+Address.list = function(offset,limit,result) {
+  if (offset == (null || undefined)) {
+    offset = 0;
+  }
+  if (limit == (null || undefined)) {
+    limit = 20;
+  }
   // http://localhost:3001
+  // "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
   sql.query(
     "Select id,firstname as name, CONCAT('" +
       process.env.URL +
-      "/address/',id) as url from address order by id limit 1000",
+      "/address/',id) as url from address order by firstname asc limit " +offset + "," + limit,
     function(err, res) {
       if (err) {
         console.log("error: ", err);
@@ -46,7 +53,7 @@ Address.list = function(result) {
       } else {
         let listres = {
           count: 964,
-          next: "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20",
+          next: process.env.URL + "/address/list?offset="+(Number(offset) + Number(limit))+"&limit="+limit,
           previous: null,
           results: res
         };

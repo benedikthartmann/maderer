@@ -9,7 +9,7 @@ exports.address_read = function(req, res) {
 };
 
 exports.address_list = function(req, res) {
-  Address.list(function(err, data) {
+  Address.list(req.query.offset,req.query.limit,function(err, data) {
     if (err)
       res.send(err);
     res.json(data);

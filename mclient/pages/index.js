@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Head from 'next/head'
 import Nav from '../components/nav'
 import AddressList from '../components/AddressList'
+import AddressPagination from '../components/AddressPagination'
 import useSWR from "swr";
 import fetcher from "../lib/fetcher";
 
@@ -18,7 +19,8 @@ const Home = () => (
         />
     </Head>
     <Nav />
-    <AddressList />
+    {/*<AddressList />*/}
+    <AddressPagination />
     MAPIURL_ADDRESSLIST: {process.env.MAPIURL_ADDRESSLIST}
   </div>
 )

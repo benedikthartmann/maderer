@@ -46,13 +46,13 @@ function AddressForm(props) {
       body: JSON.stringify(data)
     });
     mutate(props.entity.url, {...data}, false);
-    // in case of new record, wait for one second until the data are saved and reload the list
+    // in case of new record, wait for one second until the data should be saved and reload the list
     if (Number(props.entity.id) == 0) {
       const delay = ms => new Promise(res => setTimeout(res, ms));
       const yourFunction = async () => {
         await delay(1000);
         trigger(process.env.MAPIURL_ADDRESSLIST);
-        console.log("trigger refres");
+        console.log("after new record reload of list triggered: "+process.env.MAPIURL_ADDRESSLIST)
       };
       yourFunction();
     }
