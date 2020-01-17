@@ -12,7 +12,7 @@ function AddressShort(props) {
 
   return (
         data ? (
-          <div className="flex z-0">
+          <div key={props.entity.id} className="flex z-0">
             <div className="bg-red-500 sm:bg-green-500 md:bg-blue-500 lg:bg-pink-500 xl:bg-teal-500">{props.entity.name}</div>
             <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4 bg-gray-500">{data.firstname}</div>
             <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4 bg-gray-500">{data.lastname}</div>
@@ -28,7 +28,8 @@ function AddressShort(props) {
                 }
               >
                 edit
-              </button></div>
+              </button>
+              </div>
           </div>
         ) : (
           <p className="font-bold text-l capitalize">
